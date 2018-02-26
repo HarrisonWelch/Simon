@@ -4,4 +4,23 @@
         Simon was created by Suzanne Kersten and Harrison Welch for their CSCI 4020 class,
         taught by the esteemed Dr. Nicholson.
     </string>
+
+    <string name="returnToMain">Return to Main Menu</string>
+
+
+    <string name="howToPlayMainTextOriginal">
+        Upon starting a game, Simon will start a pattern by lighting up one of the four colored buttons
+        and playing a sound unique to that button. Your goal is to match that pattern that Simon plays,
+        with each correct sequence adding another button to the end of the sequence.
+        \n\nExample: If Simon lights up the blue button, you press the blue button. Then Simon lights up
+        blue button and the red button, so you press the blue button and the red button in that order, continuing
+        on until you make a mistake in the sequence.
+        \n\nYour score at the end is however many buttons were in the last sequence successfully completed.
+    </string>
+    <string name="howToPlayMainTextGame1">
+        To be done
+    </string>
+    <string name="howToPlayMainTextGame2">
+        To be done
+    </string>
 </resources>

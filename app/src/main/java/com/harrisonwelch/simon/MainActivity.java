@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.button_howToPlay).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                makeToast("How to play");
+                startActivity(new Intent(getApplicationContext(), HowToPlayActivity.class));
             }
         });
 
