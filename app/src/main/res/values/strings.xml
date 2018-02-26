@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Simon</string>
+    <string name="aboutActivityMainText">
+        Simon was created by Suzanne Kersten and Harrison Welch for their CSCI 4020 class,
+        taught by the esteemed Dr. Nicholson.
+    </string>
 </resources>

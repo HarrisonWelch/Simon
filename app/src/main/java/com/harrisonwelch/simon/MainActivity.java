@@ -1,6 +1,7 @@
 package com.harrisonwelch.simon;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -46,7 +47,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.button_about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                makeToast("about");
+                startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             }
         });
 
