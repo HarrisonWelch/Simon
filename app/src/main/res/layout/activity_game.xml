@@ -23,42 +23,46 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <ImageView
-            android:id="@+id/imageView2"
+        <ImageButton
+            android:id="@+id/image_topLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:layout_margin="5dp"
             android:layout_rowWeight="1"
-            android:padding="5dp"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher" />
+            android:background="@drawable/simon_button_states"
+            android:scaleType="centerInside" />
 
-        <ImageView
-            android:id="@+id/imageView3"
+        <ImageButton
+            android:id="@+id/image_topRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:layout_margin="5dp"
             android:layout_rowWeight="1"
-            android:padding="5dp"
-            android:src="@mipmap/ic_launcher" />
+            android:background="@drawable/simon_button_states"
+            android:scaleType="centerInside" />
 
-        <ImageView
-            android:id="@+id/imageView4"
+        <ImageButton
+            android:id="@+id/image_bottom_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:layout_margin="5dp"
             android:layout_rowWeight="1"
-            android:padding="5dp"
-            android:src="@mipmap/ic_launcher" />
+            android:background="@drawable/simon_button_states"
+            android:scaleType="centerInside" />
 
-        <ImageView
-            android:id="@+id/imageView5"
+        <ImageButton
+            android:id="@+id/image_bottomRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:layout_margin="5dp"
             android:layout_rowWeight="1"
-            android:padding="5dp"
-            android:src="@mipmap/ic_launcher" />
+            android:background="@drawable/simon_button_states"
+            android:scaleType="centerInside" />
+
     </GridLayout>
 
 </android.support.constraint.ConstraintLayout>
