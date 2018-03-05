@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.button_play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                makeToast("play button");
+                startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
 
