@@ -61,7 +61,7 @@ public class MainActivity extends Activity {
     }
 
     private Toast toast;
-    private void makeToast(String text){
+    public void makeToast(String text){
         if (toast != null){
             toast.cancel();
         }
