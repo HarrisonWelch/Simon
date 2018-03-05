@@ -24,45 +24,63 @@
         app:layout_constraintVertical_bias="0.0">
 
         <ImageButton
-            android:id="@+id/image_topLeft"
+            android:id="@+id/image_red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
             android:layout_rowWeight="1"
             android:background="@drawable/simon_button_states"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:backgroundTintMode="src_atop"
             android:scaleType="centerInside" />
 
         <ImageButton
-            android:id="@+id/image_topRight"
+            android:id="@+id/image_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
             android:layout_rowWeight="1"
             android:background="@drawable/simon_button_states"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:backgroundTintMode="src_atop"
             android:scaleType="centerInside" />
 
         <ImageButton
-            android:id="@+id/image_bottom_left"
+            android:id="@+id/image_green"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
             android:layout_rowWeight="1"
             android:background="@drawable/simon_button_states"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:backgroundTintMode="src_atop"
             android:scaleType="centerInside" />
 
         <ImageButton
-            android:id="@+id/image_bottomRight"
+            android:id="@+id/image_purple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
             android:layout_rowWeight="1"
             android:background="@drawable/simon_button_states"
+            android:backgroundTint="@android:color/holo_purple"
+            android:backgroundTintMode="src_atop"
             android:scaleType="centerInside" />
 
     </GridLayout>
+
+    <TextView
+        android:id="@+id/textview_debugSequenceOutput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
