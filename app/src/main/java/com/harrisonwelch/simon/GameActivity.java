@@ -1,12 +1,12 @@
 package com.harrisonwelch.simon;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.provider.Telephony;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -17,10 +17,12 @@ import java.util.Random;
 enum Buttons {RED, BLUE, GREEN, PURPLE}
 
 public class GameActivity extends Activity {
+    private boolean isDebug = true;
+
+    private int[] buttonIds = {R.id.image_red, R.id.image_blue, R.id.image_green, R.id.image_purple};
     private Queue<Buttons> sequence;            //holds the entire sequence
     private Queue<Buttons> playerSequence;      //used to track where player is in sequence
     private int maxScore;
-    private boolean isDebug = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,51 +39,54 @@ public class GameActivity extends Activity {
         findViewById(R.id.image_green).setOnClickListener(new ButtonListener(Buttons.GREEN));
         findViewById(R.id.image_purple).setOnClickListener(new ButtonListener(Buttons.PURPLE));
 
-        restartGame();
+        findViewById(R.id.button_restartGame).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startGame();
+            }
+        });
+        findViewById(R.id.button_toMenu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        toggleMainButtons();    //Have to force buttons false so they'll be set true in startGame
+        startGame();
     }
 
-    //whenever a button is clicked, removes that button from the listing
+    //Handles button pressing and what action is done when a button is pressed
     private class ButtonListener implements View.OnClickListener {
         Buttons thisButton;
         ButtonListener(Buttons thisButton){
             this.thisButton = thisButton;
         }
 
-        //if correct button, continue down sequence.
-        //if wrong button, restart game with failure.
-        //if right sequence, restart game with success.
+        //does appropriate action for whether button pressed was correct or not
         @Override
         public void onClick(View view) {
             Buttons nextButton = playerSequence.remove();
 
-            if (nextButton == thisButton){
+            if (nextButton == thisButton){      //if correct button, continue down sequence.
                 //play correct sound
                 updateDebugTextViews();
-
-            } else {
-                MakeToast.toast(getApplicationContext(), "Game Over... score: " + (sequence.size() - 1));
+            } else {                            //if wrong button, continue to next sequence
                 //play incorrect sound
-                restartGame();
+                endGame();
             }
 
-            if (playerSequence.isEmpty()){
-                MakeToast.toast(getApplicationContext(), "Good, continue on with the next sequence");
-                addRandomToSequence();
-                updateDebugTextViews();
+            if (playerSequence.isEmpty()){      //if right sequence, restart game with success.
+                endTurn();
             }
-
-
         }
     }
 
-    //Reset all local variables and re-start the sequence.
-    private void restartGame() {
-        if (sequence.size() > 0){
-            maxScore = sequence.size() - 1; //exclude last elem in sequence since they failed that one
-        }
-        sequence.clear();
+    // Called when user moves into activity or presses "restart"
+    private void startGame() {
+        toggleMenuButtons();
+        toggleMainButtons();
         addRandomToSequence();
-
         updateDebugTextViews();
     }
 
@@ -98,6 +103,44 @@ public class GameActivity extends Activity {
     private Buttons getRandomButton(){
         return VALUES.get(rand.nextInt(VALUES.size()));
     }
+
+    // Called when the player has successfully completed a sequence.
+    private void endTurn(){
+        MakeToast.toast(getApplicationContext(), "Good, continue on with the next sequence");
+        addRandomToSequence();
+        updateDebugTextViews();
+    }
+
+    // Called when user fails a sequence.
+    // Reset all local variables.
+    private void endGame() {
+        MakeToast.toast(getApplicationContext(), "Game Over... score: " + (sequence.size() - 1));
+
+        if (sequence.size() > 0){
+            maxScore = sequence.size() - 1; //exclude last elem in sequence since they failed that one
+        }
+        sequence.clear();
+        toggleMenuButtons();
+        toggleMainButtons();
+    }
+
+    //toggles between enabled and disabled on main Simon buttons
+    private void toggleMainButtons(){
+        for(int id : buttonIds){
+            ImageButton btn = findViewById(id);
+            btn.setClickable(!(btn.isClickable()));
+            Log.i("TOGGLE", "ImageButton " + btn.getId() + " : isEnabled = " + btn.isClickable());
+        }
+    }
+
+    //toggles between visible and invisible on bottom menu buttons
+    private void toggleMenuButtons(){
+        Button btn = findViewById(R.id.button_restartGame);
+        btn.setVisibility(btn.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+        btn = findViewById(R.id.button_toMenu);
+        btn.setVisibility(btn.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+    }
+
 
     //Only works in debug mode:
     // update the sequence textview and playerSequence textview
