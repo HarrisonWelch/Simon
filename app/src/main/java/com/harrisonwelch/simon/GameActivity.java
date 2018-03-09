@@ -1,8 +1,11 @@
 package com.harrisonwelch.simon;
 
 import android.app.Activity;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -19,6 +22,15 @@ enum Buttons {RED, BLUE, GREEN, PURPLE}
 public class GameActivity extends Activity {
     private boolean isDebug = true;
 
+    private SoundPool soundpool;
+    private SparseIntArray soundsLoaded;
+    int SE_MENU_BEEP = 0;
+    int SE_CORRECT_PING = 1;
+    int SE_CAR_DOOR = 2;
+    int SE_CAMERA_CLICK = 3;
+    int SE_ROCKS = 4;
+    int SE_LASER = 5;
+
     private int[] buttonIds = {R.id.image_red, R.id.image_blue, R.id.image_green, R.id.image_purple};
     private Queue<Buttons> sequence;            //holds the entire sequence
     private Queue<Buttons> playerSequence;      //used to track where player is in sequence
@@ -29,10 +41,14 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         //setup variables
+        soundsLoaded = new SparseIntArray();
         sequence = new LinkedList<>();
         playerSequence = new LinkedList<>();
         rand = new Random();
         maxScore = 0;
+
+        setupSoundPool();
+
         //setup listeners
         findViewById(R.id.image_red).setOnClickListener(new ButtonListener(Buttons.RED));
         findViewById(R.id.image_blue).setOnClickListener(new ButtonListener(Buttons.BLUE));
@@ -56,6 +72,48 @@ public class GameActivity extends Activity {
         startGame();
     }
 
+    private void setupSoundPool(){
+        AudioAttributes.Builder ab = new AudioAttributes.Builder();
+        ab.setUsage(AudioAttributes.USAGE_GAME);
+
+        SoundPool.Builder sb = new SoundPool.Builder();
+        sb.setAudioAttributes(ab.build());
+        sb.setMaxStreams(10);
+        soundpool = sb.build();
+
+        soundpool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                if (status == 0){
+                    Log.i("SOUNDPOOL", "Successfully loaded " + sampleId);
+                } else {
+                    Log.i("SOUNDPOOL", "fail to load sound " + sampleId);
+                }
+            }
+        });
+
+        int soundIds[] = {
+                R.raw.correct_ping, R.raw.menu_beep, R.raw.car_door,
+                R.raw.camera_click, R.raw.rocks, R.raw.laser
+        };
+        int soundNames[] = {
+                SE_CORRECT_PING, SE_MENU_BEEP, SE_CAR_DOOR,
+                SE_CAMERA_CLICK, SE_ROCKS, SE_LASER
+        };
+
+        for(int i = 0; i < soundIds.length; i++){
+            int id = soundpool.load(getApplicationContext(), soundIds[i], 1);
+            soundsLoaded.append(soundNames[i], id);
+        }
+
+    }
+
+    //Get sound from the soundNames map and play it.
+    private void playSound(int key){
+        soundpool.play(soundsLoaded.get(key), 10.f, 10.f, 0, 0, 1.0f);
+        Log.i("SOUNDPOOL", "Played sound with key = " + key);
+    }
+
     //Handles button pressing and what action is done when a button is pressed
     private class ButtonListener implements View.OnClickListener {
         Buttons thisButton;
@@ -66,6 +124,7 @@ public class GameActivity extends Activity {
         //does appropriate action for whether button pressed was correct or not
         @Override
         public void onClick(View view) {
+            playSound(SE_LASER);
             Buttons nextButton = playerSequence.remove();
 
             if (nextButton == thisButton){      //if correct button, continue down sequence.
