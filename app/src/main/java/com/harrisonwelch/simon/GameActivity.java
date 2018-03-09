@@ -59,13 +59,13 @@ public class GameActivity extends Activity {
                 updateDebugTextViews();
 
             } else {
-                makeToast(getApplicationContext(), "Game Over... score: " + (sequence.size() - 1));
+                MakeToast.toast(getApplicationContext(), "Game Over... score: " + (sequence.size() - 1));
                 //play incorrect sound
                 restartGame();
             }
 
             if (playerSequence.isEmpty()){
-                makeToast(getApplicationContext(), "Good, continue on with the next sequence");
+                MakeToast.toast(getApplicationContext(), "Good, continue on with the next sequence");
                 addRandomToSequence();
                 updateDebugTextViews();
             }
@@ -110,15 +110,4 @@ public class GameActivity extends Activity {
         }
     }
 
-    //makes a toast and cancels a previous toast if there was one.
-    private static Toast toast;
-    public static void makeToast(Context context, String text){
-        if (toast != null){
-            toast.cancel();
-        }
-
-        toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
-        toast.show();
-
-    }
 }

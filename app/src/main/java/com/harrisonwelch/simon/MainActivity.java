@@ -26,14 +26,14 @@ public class MainActivity extends Activity {
         findViewById(R.id.button_playMode2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                makeToast("mode 2 button");
+                MakeToast.toast(getApplicationContext(), "mode 2 button");
             }
         });
 
         findViewById(R.id.button_playMode3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                makeToast("mode 3 button");
+                MakeToast.toast(getApplicationContext(), "mode 3 button");
             }
         });
 
@@ -58,16 +58,5 @@ public class MainActivity extends Activity {
                 soundOn = b;
             }
         });
-    }
-
-    private Toast toast;
-    public void makeToast(String text){
-        if (toast != null){
-            toast.cancel();
-        }
-
-        toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
-        toast.show();
-
     }
 }
