@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">Simon</string>
+    <string name="aboutActivityMainText">
+        Simon was created by Suzanne Kersten and Harrison Welch for their CSCI 4020 class,
+        taught by the esteemed Dr. Nicholson.
+    </string>
+    <string name="soundEffectAttribution">
+        Menu Ping - qubodup - https://freesound.org/people/qubodup/sounds/140773/ \n
+        Correct Ping - edsward - https://freesound.org/people/edsward/sounds/341871/ \n
+        Falling rock sound (in-game button) - Uminari - https://freesound.org/people/Uminari/sounds/389724/ \n
+        Laser sound (in-game button) - THE_bizniss - https://freesound.org/people/THE_bizniss/sounds/39459/ \n
+        Camera Click (in-game button) - Snapper4298 - https://freesound.org/people/Snapper4298/sounds/178186/ \n
+        Car Door Closing (in-game button) - Heigh-hoo - https://freesound.org/people/Heigh-hoo/sounds/9876/ \n
+    </string>
+
+    <string name="returnToMain">Return to Main Menu</string>
+
+
+    <string name="howToPlayMainTextOriginal">
+        Upon starting a game, Simon will start a pattern by lighting up one of the four colored buttons
+        and playing a sound unique to that button. Your goal is to match that pattern that Simon plays,
+        with each correct sequence adding another button to the end of the sequence.
+        \n\nExample: If Simon lights up the blue button, you press the blue button. Then Simon lights up
+        blue button and the red button, so you press the blue button and the red button in that order, continuing
+        on until you make a mistake in the sequence.
+        \n\nYour score at the end is however many buttons were in the last sequence successfully completed.
+    </string>
+    <string name="howToPlayMainTextGame1">
+        To be done
+    </string>
+    <string name="howToPlayMainTextGame2">
+        To be done
+    </string>
 </resources>
