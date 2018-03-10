@@ -23,6 +23,8 @@ enum Buttons {RED, BLUE, GREEN, PURPLE}
 
 public class GameActivity extends Activity {
     private boolean isDebug = true;
+    private ShowPatternTask showPatterTask;
+    private static final String TAG_GAME_ACTIVITY = "GAME_ACTIVITY";
 
     private SoundPool soundpool;
     private SparseIntArray soundsLoaded;
@@ -34,7 +36,7 @@ public class GameActivity extends Activity {
     int SE_LASER = 5;
 
     private int[] buttonIds = {R.id.image_red, R.id.image_blue, R.id.image_green, R.id.image_purple};
-    private Queue<Buttons> sequence;            //holds the entire sequence
+    private LinkedList<Buttons> sequence;            //holds the entire sequence
     private Queue<Buttons> playerSequence;      //used to track where player is in sequence
     private int maxScore;
 
@@ -149,6 +151,14 @@ public class GameActivity extends Activity {
         toggleMainButtons();
         addRandomToSequence();
         updateDebugTextViews();
+
+        // start the showPatternTask
+        if ( showPatterTask == null ){
+            showPatterTask = new ShowPatternTask();
+            showPatterTask.execute();
+        } else {
+            showPatterTask = null;
+        }
     }
 
     //Add x Buttons to the sequence and reset playerSequence
@@ -214,7 +224,7 @@ public class GameActivity extends Activity {
         }
     }
 
-    class ShowPatternTask extends AsyncTask<Void, Void, Void>{
+    class ShowPatternTask extends AsyncTask<Void, Integer, Void>{
         static final String STATE_OFF = "off";
         static final String STATE_ON = "on";
 
@@ -243,16 +253,37 @@ public class GameActivity extends Activity {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            Buttons buttonThing;
+            int buttonOrdinal;
+            // move through the sequence list and display each
+            try {
+                for (int i = 0; i < sequence.size(); i++) {
+                    // get the button object from the queue
+                    buttonThing = sequence.get(i);
+                    // get the or
+                    buttonOrdinal = buttonThing.ordinal();
+                    // publish flash this ID to the UI!!
+                    publishProgress(buttonOrdinal);
+                    // ok, not wait 200ms
+                    Thread.sleep(200);
+                }
+            } catch (InterruptedException e){
+                Log.i(TAG_GAME_ACTIVITY, "planned InterruptedException has triggered");
+                e.printStackTrace();
+
+            }
             return null;
         }
 
         @Override
-        protected void onProgressUpdate(Void... values) {
+        protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            // set the showPatterTask back to null, for it may start again
+            showPatterTask = null;
             super.onPostExecute(aVoid);
         }
 
