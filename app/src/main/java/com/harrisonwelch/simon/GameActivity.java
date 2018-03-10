@@ -3,12 +3,14 @@ package com.harrisonwelch.simon;
 import android.app.Activity;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Arrays;
@@ -209,6 +211,40 @@ public class GameActivity extends Activity {
             tv.setText(sequence.toString());
             TextView tv2 = findViewById(R.id.textview_debugPlayerSequence);
             tv2.setText(playerSequence.toString());
+        }
+    }
+
+    class ShowPatternTask extends AsyncTask<Void, Void, Void>{
+
+        ImageView topLeftFlasher;
+        ImageView topRightFlasher;
+        ImageView bottomLeftFlasher;
+        ImageView bottomRightFlasher;
+
+
+        @Override
+        protected void onPreExecute() {
+            // setup the flashers which indicate the wanted pattern from user
+            topLeftFlasher = findViewById(R.id.imageview_top_left);
+            topRightFlasher = findViewById(R.id.imageview_top_right);
+            bottomLeftFlasher = findViewById(R.id.imageview_bottom_left);
+            bottomRightFlasher = findViewById(R.id.imageview_bottom_right);
+//            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
         }
     }
 
