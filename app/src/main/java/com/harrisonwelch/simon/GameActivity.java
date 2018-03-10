@@ -215,12 +215,20 @@ public class GameActivity extends Activity {
     }
 
     class ShowPatternTask extends AsyncTask<Void, Void, Void>{
+        static final String STATE_OFF = "off";
+        static final String STATE_ON = "on";
 
-        ImageView topLeftFlasher;
-        ImageView topRightFlasher;
-        ImageView bottomLeftFlasher;
-        ImageView bottomRightFlasher;
+        private ImageView topLeftFlasher;
+        private ImageView topRightFlasher;
+        private ImageView bottomLeftFlasher;
+        private ImageView bottomRightFlasher;
 
+        private int [] flasherIds = {
+                R.id.imageview_top_left,
+                R.id.imageview_top_right,
+                R.id.imageview_bottom_left,
+                R.id.imageview_bottom_right
+        };
 
         @Override
         protected void onPreExecute() {
@@ -229,6 +237,7 @@ public class GameActivity extends Activity {
             topRightFlasher = findViewById(R.id.imageview_top_right);
             bottomLeftFlasher = findViewById(R.id.imageview_bottom_left);
             bottomRightFlasher = findViewById(R.id.imageview_bottom_right);
+            setFlashers(STATE_OFF);
 //            super.onPreExecute();
         }
 
@@ -246,6 +255,20 @@ public class GameActivity extends Activity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
         }
+
+        private void setFlashers(String state){
+            for(int i = 0; i < flasherIds.length; i++) {
+                if (state.equals("on")) {
+                    // flip all the flashers to on
+                    // ( (ImageView) findViewById(flasherIds[i])).setImageResource();
+                } else if (state.equals("off")) {
+                    // flip all the flashers to off
+                    // set ImageView to empty drawable shape
+                    ( (ImageView) findViewById(flasherIds[i])).setImageResource(R.drawable.flash_off);
+                }
+            }
+        }
     }
+
 
 }
