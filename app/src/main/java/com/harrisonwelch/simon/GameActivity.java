@@ -54,10 +54,12 @@ public class GameActivity extends Activity {
         setupSoundPool();
 
         //setup listeners
-        findViewById(R.id.image_red).setOnClickListener(new ButtonListener(Buttons.RED));
-        findViewById(R.id.image_blue).setOnClickListener(new ButtonListener(Buttons.BLUE));
-        findViewById(R.id.image_green).setOnClickListener(new ButtonListener(Buttons.GREEN));
-        findViewById(R.id.image_purple).setOnClickListener(new ButtonListener(Buttons.PURPLE));
+        findViewById(R.id.image_red).setOnClickListener(new ButtonListener(Buttons.RED, SE_LASER));
+        findViewById(R.id.image_blue).setOnClickListener(new ButtonListener(Buttons.BLUE, SE_ROCKS));
+        findViewById(R.id.image_green).setOnClickListener(new ButtonListener(Buttons.GREEN, SE_CAMERA_CLICK));
+        findViewById(R.id.image_purple).setOnClickListener(new ButtonListener(Buttons.PURPLE, SE_CAR_DOOR));
+
+
 
         findViewById(R.id.button_restartGame).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +78,7 @@ public class GameActivity extends Activity {
         startGame();
     }
 
+    //do initialization and sound loading for sound effects
     private void setupSoundPool(){
         AudioAttributes.Builder ab = new AudioAttributes.Builder();
         ab.setUsage(AudioAttributes.USAGE_GAME);
@@ -114,28 +117,33 @@ public class GameActivity extends Activity {
 
     //Get sound from the soundNames map and play it.
     private void playSound(int key){
-        soundpool.play(soundsLoaded.get(key), 10.f, 10.f, 0, 0, 1.0f);
-        Log.i("SOUNDPOOL", "Played sound with key = " + key);
+        int sound = soundsLoaded.get(key, -1);
+        if (sound != -1) {
+            soundpool.play(soundsLoaded.get(key), 1.f, 1.f, 0, 0, 1.0f);
+            Log.i("SOUNDPOOL", "Played sound with key = " + key);
+        }
     }
 
     //Handles button pressing and what action is done when a button is pressed
     private class ButtonListener implements View.OnClickListener {
         Buttons thisButton;
-        ButtonListener(Buttons thisButton){
+        int soundToPlay;
+        ButtonListener(Buttons thisButton, int soundToPlay){
             this.thisButton = thisButton;
+            this.soundToPlay = soundToPlay;
         }
 
         //does appropriate action for whether button pressed was correct or not
         @Override
         public void onClick(View view) {
-            playSound(SE_LASER);
             Buttons nextButton = playerSequence.remove();
 
             if (nextButton == thisButton){      //if correct button, continue down sequence.
-                //play correct sound
+                playSound(soundToPlay);
                 updateDebugTextViews();
             } else {                            //if wrong button, continue to next sequence
                 //play incorrect sound
+
                 endGame();
             }
 
