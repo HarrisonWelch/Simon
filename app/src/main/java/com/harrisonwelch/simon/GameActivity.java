@@ -117,6 +117,9 @@ public class GameActivity extends Activity {
 
     //Get sound from the soundNames map and play it.
     private void playSound(int key){
+        if (!MainActivity.soundOn){
+            return;
+        }
         int sound = soundsLoaded.get(key, -1);
         if (sound != -1) {
             soundpool.play(soundsLoaded.get(key), 1.f, 1.f, 0, 0, 1.0f);
