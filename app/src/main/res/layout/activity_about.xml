@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#93ADFC"
+    android:background="#118DB0"
     android:orientation="vertical"
     tools:context="com.harrisonwelch.simon.AboutActivity">
 
-    <LinearLayout android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -16,8 +17,13 @@
             style="@style/headerText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:shadowColor="#000000"
+            android:shadowDx="7"
+            android:shadowDy="-7"
+            android:shadowRadius="2"
             android:text="About Simon"
             android:textAlignment="center"
+            android:textColor="#190D7C"
             tools:layout_editor_absoluteX="134dp"
             tools:layout_editor_absoluteY="16dp" />
 
@@ -25,32 +31,44 @@
             android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="#efefef" />
+            android:background="#03576F" />
 
         <TextView
             android:id="@+id/textView3"
             style="@style/bodyText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:autoLink="web"
             android:text="@string/aboutActivityMainText" />
 
         <View
             android:id="@+id/line2"
             android:layout_width="match_parent"
             android:layout_height="3dp"
+            android:layout_margin="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginHorizontal="5dp"
-            android:background="#efefef" />
+            android:layout_marginStart="5dp"
+            android:background="#03576F" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/textView_soundSource"
+            style="@style/bodyText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:autoLink="none"
             android:text="@string/soundEffectAttribution" />
 
         <Button
             android:id="@+id/button_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:text="@string/returnToMain" />
     </LinearLayout>
 </ScrollView>
