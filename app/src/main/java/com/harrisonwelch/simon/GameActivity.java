@@ -162,7 +162,10 @@ public class GameActivity extends Activity {
         toggleMainButtons();
         addRandomToSequence();
         updateDebugTextViews();
+        startShowPatternTask();
+    }
 
+    private void startShowPatternTask() {
         // start the showPatternTask
         if ( showPatterTask == null ){
             showPatterTask = new ShowPatternTask();
@@ -191,6 +194,7 @@ public class GameActivity extends Activity {
         MakeToast.toast(getApplicationContext(), "Good, continue on with the next sequence");
         addRandomToSequence();
         updateDebugTextViews();
+        startShowPatternTask();
     }
 
     // Called when user fails a sequence.
@@ -244,6 +248,10 @@ public class GameActivity extends Activity {
         private ImageView bottomLeftFlasher;
         private ImageView bottomRightFlasher;
 
+        private int [] flasherDrawableIds = {
+
+        };
+
         private int [] flasherIds = {
                 R.id.imageview_top_left,
                 R.id.imageview_top_right,
@@ -275,7 +283,7 @@ public class GameActivity extends Activity {
                     buttonOrdinal = buttonThing.ordinal();
                     // publish flash this ID to the UI!!
                     publishProgress(buttonOrdinal);
-                    // ok, not wait 200ms
+                    // ok, now wait 200ms
                     Thread.sleep(200);
                 }
             } catch (InterruptedException e){
@@ -288,6 +296,11 @@ public class GameActivity extends Activity {
 
         @Override
         protected void onProgressUpdate(Integer... values) {
+            Log.i(TAG_GAME_ACTIVITY, "values[0] = " + values[0]);
+
+            // here we need to "flash" the color to the user
+
+
             super.onProgressUpdate(values);
         }
 
