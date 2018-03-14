@@ -151,6 +151,12 @@ public class GameActivity extends Activity {
         //does appropriate action for whether button pressed was correct or not
         @Override
         public void onClick(View view) {
+
+            // if the showPatterTask is going, DONT GIVE CLICK ABILITY!!!
+            if(showPatterTask != null){
+                return;
+            }
+
             Buttons nextButton = playerSequence.remove();
 
             if (nextButton == thisButton){      //if correct button, continue down sequence.
