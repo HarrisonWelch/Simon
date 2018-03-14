@@ -259,10 +259,17 @@ public class GameActivity extends Activity {
         };
 
         private int [] flasherIds = {
-                R.id.imageview_top_left,
-                R.id.imageview_top_right,
-                R.id.imageview_bottom_left,
-                R.id.imageview_bottom_right
+            R.id.imageview_top_left,
+            R.id.imageview_top_right,
+            R.id.imageview_bottom_left,
+            R.id.imageview_bottom_right
+        };
+
+        private int [] flasherSoundKeys = {
+            SE_LASER,
+            SE_ROCKS,
+            SE_CAMERA_CLICK,
+            SE_CAR_DOOR
         };
 
         @Override
@@ -290,8 +297,8 @@ public class GameActivity extends Activity {
                     // publish flash this ID to the UI!!
                     publishProgress(buttonOrdinal);
                     // ok, now wait 200ms
-                    Thread.sleep(200);
-                    // the light is on for 1/5 second
+                    Thread.sleep(500);
+                    // the light is on for 1/2 second
                     // now turn off and don't wait so off -> on is very fast
                     publishProgress(-1);
 
@@ -310,9 +317,12 @@ public class GameActivity extends Activity {
 
             int pos = values[0];
 
-            if (pos > 0) {
+            if (pos >= 0) {
                 // here we need to "flash" the color to the user
                 ((ImageView) findViewById(flasherIds[pos])).setImageResource(flasherDrawableIds[pos]);
+
+                // play sound
+                playSound(flasherSoundKeys[pos]);
             } else if (pos == -1){
                 setFlashers(STATE_OFF);
             }
