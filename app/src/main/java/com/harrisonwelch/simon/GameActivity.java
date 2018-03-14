@@ -319,7 +319,7 @@ public class GameActivity extends Activity {
 
             if (pos >= 0) {
                 // here we need to "flash" the color to the user
-                ((ImageView) findViewById(flasherIds[pos])).setImageResource(flasherDrawableIds[pos]);
+                ((ImageView) findViewById(flasherIds[pos])).setBackground(getResources().getDrawable(flasherDrawableIds[pos]));
 
                 // play sound
                 playSound(flasherSoundKeys[pos]);
@@ -344,7 +344,7 @@ public class GameActivity extends Activity {
                 } else if (state.equals("off")) {
                     // flip all the flashers to off
                     // set ImageView to empty drawable shape
-                    ( (ImageView) findViewById(flasherIds[i])).setImageResource(R.drawable.flash_off);
+                    ( (ImageView) findViewById(flasherIds[i])).setBackground(getResources().getDrawable(R.drawable.flash_off));
                 }
             }
         }
