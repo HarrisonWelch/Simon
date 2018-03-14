@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -39,6 +40,8 @@ public class GameActivity extends Activity {
     private LinkedList<Buttons> sequence;            //holds the entire sequence
     private Queue<Buttons> playerSequence;      //used to track where player is in sequence
     private int maxScore;
+
+    private double gameSpeed = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +77,17 @@ public class GameActivity extends Activity {
                 finish();
             }
         });
+        findViewById(R.id.button_start).setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                toggleStartButton();
+                startGame();
+            }
+        });
 
         toggleMainButtons();    //Have to force buttons false so they'll be set true in startGame
-        startGame();
+//        startGame();
     }
 
     //do initialization and sound loading for sound effects
@@ -192,10 +203,13 @@ public class GameActivity extends Activity {
 
     // Called when the player has successfully completed a sequence.
     private void endTurn(){
-        MakeToast.toast(getApplicationContext(), "Good, continue on with the next sequence");
+//        MakeToast.toast(getApplicationContext(), "Good, continue on with the next sequence");
         addRandomToSequence();
         updateDebugTextViews();
         startShowPatternTask();
+
+        // based on the size of the queue upgrade the speed
+        toggleSpeed();
     }
 
     // Called when user fails a sequence.
@@ -229,6 +243,10 @@ public class GameActivity extends Activity {
         btn.setVisibility(btn.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
     }
 
+    private void toggleStartButton(){
+        Button btn = findViewById(R.id.button_start);
+        btn.setVisibility(btn.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+    }
 
     //Only works in debug mode:
     //Only works in debug mode:
@@ -240,6 +258,23 @@ public class GameActivity extends Activity {
             TextView tv2 = findViewById(R.id.textview_debugPlayerSequence);
             tv2.setText(playerSequence.toString());
         }
+    }
+
+    private void toggleSpeed(){
+        int score = sequence.size();
+        if (score == 5){
+            gameSpeed = 0.80;
+            MakeToast.toast(getApplicationContext(),"Speed Up!");
+        } else if (score == 9) {
+            gameSpeed = 0.40;
+            MakeToast.toast(getApplicationContext(),"Speed Up!");
+        } else if (score == 13) {
+            gameSpeed = 0.20;
+            MakeToast.toast(getApplicationContext(),"Speed Up!");
+        }
+        Log.i(TAG_GAME_ACTIVITY, "gameSpeed = " + gameSpeed); //(int)(500 * gameSpeed)
+        Log.i(TAG_GAME_ACTIVITY, "(int)(500 * gameSpeed) = " + (int)(500 * gameSpeed)); //(int)(500 * gameSpeed)
+
     }
 
     class ShowPatternTask extends AsyncTask<Void, Integer, Void>{
@@ -289,6 +324,8 @@ public class GameActivity extends Activity {
             int buttonOrdinal;
             // move through the sequence list and display each
             try {
+                // do a short wait for the user to track the screen better
+                Thread.sleep(100);
                 for (int i = 0; i < sequence.size(); i++) {
                     // get the button object from the queue
                     buttonThing = sequence.get(i);
@@ -297,7 +334,7 @@ public class GameActivity extends Activity {
                     // publish flash this ID to the UI!!
                     publishProgress(buttonOrdinal);
                     // ok, now wait 200ms
-                    Thread.sleep(500);
+                    Thread.sleep((int)(500 * gameSpeed));
                     // the light is on for 1/2 second
                     // now turn off and don't wait so off -> on is very fast
                     publishProgress(-1);
@@ -306,7 +343,6 @@ public class GameActivity extends Activity {
             } catch (InterruptedException e){
                 Log.i(TAG_GAME_ACTIVITY, "planned InterruptedException has triggered");
                 e.printStackTrace();
-
             }
             return null;
         }
