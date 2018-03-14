@@ -49,7 +49,8 @@ public class GameActivity extends Activity {
         sequence = new LinkedList<>();
         playerSequence = new LinkedList<>();
         rand = new Random();
-        maxScore = 0;
+        maxScore = MainActivity.maxScore;
+        
 
         setupSoundPool();
 
@@ -202,8 +203,9 @@ public class GameActivity extends Activity {
     private void endGame() {
         MakeToast.toast(getApplicationContext(), "Game Over... score: " + (sequence.size() - 1));
 
-        if (sequence.size() > 0){
+        if (sequence.size() - 1 > maxScore){
             maxScore = sequence.size() - 1; //exclude last elem in sequence since they failed that one
+            MainActivity.saveScore(getApplicationContext(), maxScore);
         }
         sequence.clear();
         toggleMenuButtons();
@@ -228,6 +230,7 @@ public class GameActivity extends Activity {
     }
 
 
+    //Only works in debug mode:
     //Only works in debug mode:
     // update the sequence textview and playerSequence textview
     private void updateDebugTextViews(){
