@@ -249,7 +249,10 @@ public class GameActivity extends Activity {
         private ImageView bottomRightFlasher;
 
         private int [] flasherDrawableIds = {
-
+            R.drawable.flash_red,
+            R.drawable.flash_blue,
+            R.drawable.flash_green,
+            R.drawable.flash_purple
         };
 
         private int [] flasherIds = {
@@ -266,7 +269,7 @@ public class GameActivity extends Activity {
             topRightFlasher = findViewById(R.id.imageview_top_right);
             bottomLeftFlasher = findViewById(R.id.imageview_bottom_left);
             bottomRightFlasher = findViewById(R.id.imageview_bottom_right);
-            setFlashers(STATE_OFF);
+//            setFlashers(STATE_OFF);
 //            super.onPreExecute();
         }
 
@@ -298,8 +301,10 @@ public class GameActivity extends Activity {
         protected void onProgressUpdate(Integer... values) {
             Log.i(TAG_GAME_ACTIVITY, "values[0] = " + values[0]);
 
-            // here we need to "flash" the color to the user
+            int pos = values[0];
 
+            // here we need to "flash" the color to the user
+            ((ImageView) findViewById(flasherIds[pos])).setImageResource(flasherDrawableIds[pos]);
 
             super.onProgressUpdate(values);
         }
