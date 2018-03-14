@@ -342,8 +342,11 @@ public class GameActivity extends Activity {
                     // ok, now wait 200ms
                     Thread.sleep((int)(500 * gameSpeed));
                     // the light is on for 1/2 second
-                    // now turn off and don't wait so off -> on is very fast
+                    // turn off
                     publishProgress(-1);
+                    // wait shortly for the user to know the same button is used twice or more
+                    // in a row.
+                    Thread.sleep(50);
 
                 }
             } catch (InterruptedException e){
