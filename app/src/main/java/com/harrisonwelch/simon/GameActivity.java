@@ -291,6 +291,10 @@ public class GameActivity extends Activity {
                     publishProgress(buttonOrdinal);
                     // ok, now wait 200ms
                     Thread.sleep(200);
+                    // the light is on for 1/5 second
+                    // now turn off and don't wait so off -> on is very fast
+                    publishProgress(-1);
+
                 }
             } catch (InterruptedException e){
                 Log.i(TAG_GAME_ACTIVITY, "planned InterruptedException has triggered");
@@ -306,9 +310,12 @@ public class GameActivity extends Activity {
 
             int pos = values[0];
 
-            // here we need to "flash" the color to the user
-            ((ImageView) findViewById(flasherIds[pos])).setImageResource(flasherDrawableIds[pos]);
-
+            if (pos > 0) {
+                // here we need to "flash" the color to the user
+                ((ImageView) findViewById(flasherIds[pos])).setImageResource(flasherDrawableIds[pos]);
+            } else if (pos == -1){
+                setFlashers(STATE_OFF);
+            }
             super.onProgressUpdate(values);
         }
 
