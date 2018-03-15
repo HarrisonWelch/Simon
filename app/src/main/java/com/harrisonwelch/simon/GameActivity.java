@@ -363,7 +363,7 @@ public class GameActivity extends Activity {
             // move through the sequence list and display each
             try {
                 // do a short wait for the user to track the screen better
-                Thread.sleep(100);
+                Thread.sleep(600);
                 for (int i = 0; i < sequence.size(); i++) {
                     // get the button object from the queue
                     buttonThing = sequence.get(i);
