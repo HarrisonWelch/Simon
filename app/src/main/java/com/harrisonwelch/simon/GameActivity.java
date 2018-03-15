@@ -35,6 +35,7 @@ public class GameActivity extends Activity {
     int SE_CAMERA_CLICK = 3;
     int SE_ROCKS = 4;
     int SE_LASER = 5;
+    int SE_WRONG = 6;
 
     private int[] buttonIds = {R.id.image_red, R.id.image_blue, R.id.image_green, R.id.image_purple};
     private LinkedList<Buttons> sequence;            //holds the entire sequence
@@ -113,11 +114,11 @@ public class GameActivity extends Activity {
 
         int soundIds[] = {
                 R.raw.correct_ping, R.raw.menu_beep, R.raw.car_door,
-                R.raw.camera_click, R.raw.rocks, R.raw.laser
+                R.raw.camera_click, R.raw.rocks, R.raw.laser, R.raw.wrong
         };
         int soundNames[] = {
                 SE_CORRECT_PING, SE_MENU_BEEP, SE_CAR_DOOR,
-                SE_CAMERA_CLICK, SE_ROCKS, SE_LASER
+                SE_CAMERA_CLICK, SE_ROCKS, SE_LASER, SE_WRONG
         };
 
         for(int i = 0; i < soundIds.length; i++){
@@ -164,7 +165,7 @@ public class GameActivity extends Activity {
                 updateDebugTextViews();
             } else {                            //if wrong button, continue to next sequence
                 //play incorrect sound
-
+                playSound(SE_WRONG);
                 endGame();
             }
 
