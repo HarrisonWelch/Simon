@@ -38,10 +38,13 @@ public class MainActivity extends Activity {
         loadScore();
         ((TextView) findViewById(R.id.textview_maxScore)).setText("High Score: " + maxScore);
 
+        // regular game
         findViewById(R.id.button_play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
+                // change game mode
+                gameMode = GAME_MODE_REGULAR;
             }
         });
 
@@ -49,7 +52,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.button_playMode2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MakeToast.toast(getApplicationContext(), "mode 2 button");
+//                MakeToast.toast(getApplicationContext(), "mode 2 button");
                 // change game mode
                 gameMode = GAME_MODE_SPEEDY_SPENCER;
             }
@@ -59,7 +62,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.button_playMode3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MakeToast.toast(getApplicationContext(), "mode 3 button");
+//                MakeToast.toast(getApplicationContext(), "mode 3 button");
                 // change game mode
                 gameMode = GAME_MODE_TIPSY_TINA;
             }
