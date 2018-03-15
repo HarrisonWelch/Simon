@@ -38,7 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="8dp"
-        android:text="Play Mode 2"
+        android:textSize="12sp"
+        android:text="speedy spencer"
         app:layout_constraintEnd_toStartOf="@+id/button_playMode3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_play" />
@@ -49,7 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="64dp"
         android:layout_marginTop="8dp"
-        android:text="Play Mode 3"
+        android:textSize="12sp"
+        android:text="Tipsy Tina"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_playMode2"
         app:layout_constraintTop_toBottomOf="@+id/button_play" />
