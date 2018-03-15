@@ -23,7 +23,7 @@ import java.util.Random;
 enum Buttons {RED, BLUE, GREEN, PURPLE}
 
 public class GameActivity extends Activity {
-    private boolean isDebug = true;
+    private boolean isDebug = false;
     private ShowPatternTask showPatterTask;
     private static final String TAG_GAME_ACTIVITY = "GAME_ACTIVITY";
 
