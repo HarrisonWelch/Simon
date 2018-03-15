@@ -166,7 +166,7 @@ public class GameActivity extends Activity {
                 nextButton = playerSequence.remove();
 
             // if the game mode is tipsy tina, we are going in reverse
-            } else if (MainActivity.gameMode.equals(MainActivity.GAME_MODE_TIPSY_TINA)) {
+            } else if (MainActivity.gameMode.equals(MainActivity.GAME_MODE_TOPSY_TURVY)) {
                 int lastPosition = playerSequence.size() - 1;
                 nextButton = playerSequence.remove(lastPosition);
             }
