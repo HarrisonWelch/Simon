@@ -25,10 +25,7 @@ public class MainActivity extends Activity {
     static public boolean soundOn = true;
     static public int maxScore;
 
-    static public final String GAME_MODE_REGULAR = "regular";
-    static public final String GAME_MODE_SPEEDY_SPENCER = "speedy_spencer";
-    static public final String GAME_MODE_TIPSY_TINA = "tipsy_tina";
-    static public String gameMode = "regular";
+    static public String GAME_MODE_KEY = "gameMode";
 
 
     @Override
@@ -41,27 +38,21 @@ public class MainActivity extends Activity {
         findViewById(R.id.button_play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), GameActivity.class));
+                startGame(1);
             }
         });
 
-        // Speedy Spencer!
         findViewById(R.id.button_playMode2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MakeToast.toast(getApplicationContext(), "mode 2 button");
-                // change game mode
-                gameMode = GAME_MODE_SPEEDY_SPENCER;
+                startGame(2);
             }
         });
 
-        // Tipsy Tina!
         findViewById(R.id.button_playMode3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MakeToast.toast(getApplicationContext(), "mode 3 button");
-                // change game mode
-                gameMode = GAME_MODE_TIPSY_TINA;
+                startGame(3);
             }
         });
 
@@ -93,6 +84,12 @@ public class MainActivity extends Activity {
         super.onResume();
         loadScore();
         ((TextView) findViewById(R.id.textview_maxScore)).setText("High Score: " + maxScore);
+    }
+
+    protected void startGame(int gameMode){
+        Intent intent = new Intent(new Intent(getApplicationContext(), GameActivity.class));
+        intent.putExtra(GAME_MODE_KEY, gameMode);
+        startActivity(intent);
     }
 
     public void loadScore(){

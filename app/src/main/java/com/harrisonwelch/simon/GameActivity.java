@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
+import java.util.Stack;
 
 enum Buttons {RED, BLUE, GREEN, PURPLE}
 
@@ -41,6 +42,7 @@ public class GameActivity extends Activity {
     private LinkedList<Buttons> sequence;            //holds the entire sequence
     private Queue<Buttons> playerSequence;      //used to track where player is in sequence
     private int maxScore;
+    private int gameMode;
 
     private double gameSpeed = 1;
 
@@ -54,7 +56,8 @@ public class GameActivity extends Activity {
         playerSequence = new LinkedList<>();
         rand = new Random();
         maxScore = MainActivity.maxScore;
-        
+        gameMode = getIntent().getIntExtra(MainActivity.GAME_MODE_KEY, 1);
+
         setupSoundPool();
 
         //setup listeners
@@ -207,10 +210,25 @@ public class GameActivity extends Activity {
         return VALUES.get(rand.nextInt(VALUES.size()));
     }
 
+    //Modifies the passed in queue to reverse it
+    private void reverseQueue(Queue<Buttons> queue){
+        Stack stack = new Stack();
+
+        for (Buttons b : queue){
+            stack.push(b);
+        }
+
+        queue.clear();
+        while (!stack.empty()){
+            queue.add((Buttons) stack.pop());
+        }
+    }
+
     // Called when the player has successfully completed a sequence.
     private void endTurn(){
-//        MakeToast.toast(getApplicationContext(), "Good, continue on with the next sequence");
         addRandomToSequence();
+        if (gameMode == 2) addRandomToSequence();       //add another to sequence in Double Trouble
+        if (gameMode == 3) reverseQueue(playerSequence);
         updateDebugTextViews();
         startShowPatternTask();
 
