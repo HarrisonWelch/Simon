@@ -178,6 +178,7 @@ public class GameActivity extends Activity {
                 //play incorrect sound
                 playSound(SE_WRONG);
                 endGame();
+                return;
             }
 
             if (playerSequence.isEmpty()){      //if right sequence, restart game with success.
