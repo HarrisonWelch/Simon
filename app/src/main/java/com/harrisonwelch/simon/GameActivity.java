@@ -28,6 +28,8 @@ public class GameActivity extends Activity {
     private boolean isDebug = false;
     private ShowPatternTask showPatterTask;
     private static final String TAG_GAME_ACTIVITY = "GAME_ACTIVITY";
+    private static final String KEY_SEQUENCE = "sequence";
+    private static final String KEY_PLAYER_SEQUENCE = "player_sequence";
 
     private SoundPool soundpool;
     private SparseIntArray soundsLoaded;
@@ -51,6 +53,8 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        Log.i(TAG_GAME_ACTIVITY, "onCreate");
         //setup variables
         soundsLoaded = new SparseIntArray();
         sequence = new LinkedList<>();
@@ -67,7 +71,12 @@ public class GameActivity extends Activity {
         findViewById(R.id.image_green).setOnClickListener(new ButtonListener(Buttons.GREEN, SE_CAMERA_CLICK));
         findViewById(R.id.image_purple).setOnClickListener(new ButtonListener(Buttons.PURPLE, SE_CAR_DOOR));
 
-
+        if(savedInstanceState != null){
+            sequence = (LinkedList<Buttons>) savedInstanceState.getSerializable(KEY_SEQUENCE);
+            playerSequence = (LinkedList<Buttons>) savedInstanceState.getSerializable(KEY_PLAYER_SEQUENCE);
+            Log.i(TAG_GAME_ACTIVITY, "savedInstanceState sequence = " + sequence.toString());
+            Log.i(TAG_GAME_ACTIVITY, "savedInstanceState playerSequence = " + playerSequence.toString());
+        }
 
         findViewById(R.id.button_restartGame).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,10 +115,21 @@ public class GameActivity extends Activity {
 //        Log.i(TAG_GAME_ACTIVITY,"onConfigurationChanged set content");
 //        super.onConfigurationChanged(newConfig);
 //        ViewGroup vg = findViewById(R.id.gridLayout);
-//        vg.removeAllViews();
+//        vg.invalidate();
+////        vg.removeAllViews();
 ////        vg.refreshDrawableState();
 ////        setContentView(R.layout.activity_game);
 //    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Log.i(TAG_GAME_ACTIVITY, "HELLO FRED!");
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable(KEY_SEQUENCE, sequence);
+        outState.putSerializable(KEY_PLAYER_SEQUENCE, playerSequence);
+    }
 
     //do initialization and sound loading for sound effects
     private void setupSoundPool(){
