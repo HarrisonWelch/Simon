@@ -196,6 +196,11 @@ public class GameActivity extends Activity {
     //Add x Buttons to the sequence and reset playerSequence
     private void addRandomToSequence(){
         sequence.add(getRandomButton());
+
+        // if the game mode is Speedy Spencer, add an extra piece.
+        if (MainActivity.gameMode == MainActivity.GAME_MODE_SPEEDY_SPENCER){
+            sequence.add(getRandomButton());
+        }
         playerSequence.clear();
         playerSequence.addAll(sequence);
     }
