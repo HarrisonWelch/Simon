@@ -1,6 +1,7 @@
 package com.harrisonwelch.simon;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.AsyncTask;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -91,6 +93,23 @@ public class GameActivity extends Activity {
         toggleMainButtons();    //Have to force buttons false so they'll be set true in startGame
 //        startGame();
     }
+//
+//    @Override
+//    protected void onResume() {
+////        setContentView(R.layout.activity_game);
+////        Log.i(TAG_GAME_ACTIVITY,"onResume set content");
+//        super.onResume();
+//    }
+//
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        Log.i(TAG_GAME_ACTIVITY,"onConfigurationChanged set content");
+//        super.onConfigurationChanged(newConfig);
+//        ViewGroup vg = findViewById(R.id.gridLayout);
+//        vg.removeAllViews();
+////        vg.refreshDrawableState();
+////        setContentView(R.layout.activity_game);
+//    }
 
     //do initialization and sound loading for sound effects
     private void setupSoundPool(){

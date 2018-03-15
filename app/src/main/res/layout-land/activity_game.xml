@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/birch_background">
+    android:background="@drawable/birch_background"
+    android:id="@+id/main_constraint_layout">
 
     <GridLayout
         android:id="@+id/black_simon_shell"
