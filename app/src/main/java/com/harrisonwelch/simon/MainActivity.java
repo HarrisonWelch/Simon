@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
 
     static public final String GAME_MODE_REGULAR = "regular";
     static public final String GAME_MODE_DOUBLE_TROUBLE = "speedy_spencer";
-    static public final String GAME_MODE_TIPSY_TINA = "tipsy_tina";
+    static public final String GAME_MODE_TOPSY_TURVY = "topsy_turvy";
     static public String gameMode = "regular";
 
 
@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
 //                MakeToast.toast(getApplicationContext(), "mode 3 button");
                 // change game mode
-                gameMode = GAME_MODE_TIPSY_TINA;
+                gameMode = GAME_MODE_TOPSY_TURVY;
                 MakeToast.toast(getApplicationContext(), "Tipsy Tina: Press the buttons in REVERSE!");
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
