@@ -42,7 +42,7 @@ public class GameActivity extends Activity {
     private LinkedList<Buttons> sequence;            //holds the entire sequence
     private Queue<Buttons> playerSequence;      //used to track where player is in sequence
     private int maxScore;
-    private int gameMode;
+    private String gameMode = MainActivity.gameMode;
 
     private double gameSpeed = 1;
 
@@ -56,7 +56,7 @@ public class GameActivity extends Activity {
         playerSequence = new LinkedList<>();
         rand = new Random();
         maxScore = MainActivity.maxScore;
-        gameMode = getIntent().getIntExtra(MainActivity.GAME_MODE_KEY, 1);
+
 
         setupSoundPool();
 
@@ -232,8 +232,8 @@ public class GameActivity extends Activity {
     // Called when the player has successfully completed a sequence.
     private void endTurn(){
         addRandomToSequence();
-        if (gameMode == 2) addRandomToSequence();       //add another to sequence in Double Trouble
-        if (gameMode == 3) reverseQueue(playerSequence);
+        if (gameMode == MainActivity.GAME_MODE_SPEEDY_SPENCER) addRandomToSequence();       //add another to sequence in Double Trouble
+        if (gameMode == MainActivity.GAME_MODE_TIPSY_TINA) reverseQueue(playerSequence);
         updateDebugTextViews();
         startShowPatternTask();
 
