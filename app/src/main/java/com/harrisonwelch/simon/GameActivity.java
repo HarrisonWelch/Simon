@@ -76,6 +76,8 @@ public class GameActivity extends Activity {
             playerSequence = (LinkedList<Buttons>) savedInstanceState.getSerializable(KEY_PLAYER_SEQUENCE);
             Log.i(TAG_GAME_ACTIVITY, "savedInstanceState sequence = " + sequence.toString());
             Log.i(TAG_GAME_ACTIVITY, "savedInstanceState playerSequence = " + playerSequence.toString());
+            toggleMenuButtons();
+            toggleStartButton();
         }
 
         findViewById(R.id.button_restartGame).setOnClickListener(new View.OnClickListener() {
@@ -99,7 +101,10 @@ public class GameActivity extends Activity {
             }
         });
 
-        toggleMainButtons();    //Have to force buttons false so they'll be set true in startGame
+        if(savedInstanceState == null) {
+            Log.i(TAG_GAME_ACTIVITY, "savedInstanceState == null");
+            toggleMainButtons();    //Have to force buttons false so they'll be set true in startGame
+        }
 //        startGame();
     }
 //
