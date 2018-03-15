@@ -6,16 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="matrix"
+        android:src="@drawable/circles_bg" />
+
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:elevation="12dp"
+        android:fontFamily="casual"
+        android:shadowColor="#000000"
+        android:shadowDx="-8"
+        android:shadowDy="15"
+        android:shadowRadius="20"
         android:text="Simon"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="@android:color/holo_blue_bright"
         android:textSize="42sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,11 +40,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="56dp"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="8dp"
         android:text="Play Original Simon"
+        app:layout_constraintTop_toBottomOf="@id/textView11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        tools:layout_editor_absoluteY="73dp" />
 
     <Button
         android:id="@+id/button_playMode2"
@@ -78,31 +92,40 @@
         app:layout_constraintStart_toEndOf="@+id/button_howToPlay"
         app:layout_constraintTop_toTopOf="@+id/button_howToPlay" />
 
-    <Switch
-        android:id="@+id/switch_sound"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Sound:  "
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textview_maxScore"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_howToPlay"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textview_maxScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="TextView"
-        android:textSize="24sp"
+        android:background="#c0c0c0 "
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/switch_sound"
-        app:layout_constraintTop_toTopOf="@+id/switch_sound" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_about">
+
+        <Switch
+            android:id="@+id/switch_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="Sound:  "
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textview_maxScore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="High Score: "
+            android:textAlignment="center"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="133dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
