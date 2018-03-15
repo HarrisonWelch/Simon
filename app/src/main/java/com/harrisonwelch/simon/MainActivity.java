@@ -8,17 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 
 public class MainActivity extends Activity {
     static public final String SCORE_FILENAME = "simon_score.txt";
@@ -26,7 +20,7 @@ public class MainActivity extends Activity {
     static public int maxScore;
 
     static public final String GAME_MODE_REGULAR = "regular";
-    static public final String GAME_MODE_SPEEDY_SPENCER = "speedy_spencer";
+    static public final String GAME_MODE_DOUBLE_TROUBLE = "speedy_spencer";
     static public final String GAME_MODE_TIPSY_TINA = "tipsy_tina";
     static public String gameMode = "regular";
 
@@ -45,6 +39,7 @@ public class MainActivity extends Activity {
 
                 // change game mode
                 gameMode = GAME_MODE_REGULAR;
+                MakeToast.toast(getApplicationContext(), "Simon: Press the buttons in order one-by-one");
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
@@ -55,7 +50,8 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
 //                MakeToast.toast(getApplicationContext(), "mode 2 button");
                 // change game mode
-                gameMode = GAME_MODE_SPEEDY_SPENCER;
+                gameMode = GAME_MODE_DOUBLE_TROUBLE;
+                MakeToast.toast(getApplicationContext(), "Double Trouble: Press the buttons in order by pairs");
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
@@ -67,6 +63,7 @@ public class MainActivity extends Activity {
 //                MakeToast.toast(getApplicationContext(), "mode 3 button");
                 // change game mode
                 gameMode = GAME_MODE_TIPSY_TINA;
+                MakeToast.toast(getApplicationContext(), "Tipsy Tina: Press the buttons in REVERSE!");
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });

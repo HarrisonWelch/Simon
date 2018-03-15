@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -40,7 +39,7 @@ public class GameActivity extends Activity {
 
     private int[] buttonIds = {R.id.image_red, R.id.image_blue, R.id.image_green, R.id.image_purple};
     private LinkedList<Buttons> sequence;            //holds the entire sequence
-    private Queue<Buttons> playerSequence;      //used to track where player is in sequence
+    private LinkedList<Buttons> playerSequence;      //used to track where player is in sequence
     private int maxScore;
     private String gameMode = MainActivity.gameMode;
 
@@ -160,7 +159,17 @@ public class GameActivity extends Activity {
                 return;
             }
 
-            Buttons nextButton = playerSequence.remove();
+            Buttons nextButton = playerSequence.peek();
+            Log.i(TAG_GAME_ACTIVITY, "MainActivity.gameMode = " + MainActivity.gameMode);
+            Log.i(TAG_GAME_ACTIVITY, "playerSequence.toString() = " + playerSequence.toString());
+            if (MainActivity.gameMode.equals(MainActivity.GAME_MODE_REGULAR) || MainActivity.gameMode.equals(MainActivity.GAME_MODE_DOUBLE_TROUBLE)){
+                nextButton = playerSequence.remove();
+
+            // if the game mode is tipsy tina, we are going in reverse
+            } else if (MainActivity.gameMode.equals(MainActivity.GAME_MODE_TIPSY_TINA)) {
+                int lastPosition = playerSequence.size() - 1;
+                nextButton = playerSequence.remove(lastPosition);
+            }
 
             if (nextButton == thisButton){      //if correct button, continue down sequence.
                 playSound(soundToPlay);
@@ -201,7 +210,7 @@ public class GameActivity extends Activity {
         sequence.add(getRandomButton());
 
         // if the game mode is Speedy Spencer, add an extra piece.
-        if (MainActivity.gameMode == MainActivity.GAME_MODE_SPEEDY_SPENCER){
+        if (MainActivity.gameMode == MainActivity.GAME_MODE_DOUBLE_TROUBLE){
             sequence.add(getRandomButton());
         }
         playerSequence.clear();
@@ -232,8 +241,6 @@ public class GameActivity extends Activity {
     // Called when the player has successfully completed a sequence.
     private void endTurn(){
         addRandomToSequence();
-        if (gameMode == MainActivity.GAME_MODE_SPEEDY_SPENCER) addRandomToSequence();       //add another to sequence in Double Trouble
-        if (gameMode == MainActivity.GAME_MODE_TIPSY_TINA) reverseQueue(playerSequence);
         updateDebugTextViews();
         startShowPatternTask();
 
@@ -383,7 +390,7 @@ public class GameActivity extends Activity {
 
         @Override
         protected void onProgressUpdate(Integer... values) {
-            Log.i(TAG_GAME_ACTIVITY, "values[0] = " + values[0]);
+//            Log.i(TAG_GAME_ACTIVITY, "values[0] = " + values[0]);
 
             int pos = values[0];
 
