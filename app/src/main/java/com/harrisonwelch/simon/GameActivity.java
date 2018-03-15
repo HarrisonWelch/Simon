@@ -45,7 +45,6 @@ public class GameActivity extends Activity {
     private LinkedList<Buttons> sequence;            //holds the entire sequence
     private LinkedList<Buttons> playerSequence;      //used to track where player is in sequence
     private int maxScore;
-    private String gameMode = MainActivity.gameMode;
 
     private double gameSpeed = 1;
 
@@ -62,7 +61,7 @@ public class GameActivity extends Activity {
         rand = new Random();
         maxScore = MainActivity.maxScore;
 
-
+        // setup the sound stuff b/c this is cool
         setupSoundPool();
 
         //setup listeners
@@ -72,10 +71,15 @@ public class GameActivity extends Activity {
         findViewById(R.id.image_purple).setOnClickListener(new ButtonListener(Buttons.PURPLE, SE_CAR_DOOR));
 
         if(savedInstanceState != null){
+            // get me the sequence
             sequence = (LinkedList<Buttons>) savedInstanceState.getSerializable(KEY_SEQUENCE);
+            // get me the player sequence
             playerSequence = (LinkedList<Buttons>) savedInstanceState.getSerializable(KEY_PLAYER_SEQUENCE);
+
             Log.i(TAG_GAME_ACTIVITY, "savedInstanceState sequence = " + sequence.toString());
             Log.i(TAG_GAME_ACTIVITY, "savedInstanceState playerSequence = " + playerSequence.toString());
+
+            // turn off the buttons when we screen rotate
             toggleMenuButtons();
             toggleStartButton();
         }
@@ -101,32 +105,15 @@ public class GameActivity extends Activity {
             }
         });
 
+        // if the screen hasn't been rotated...
         if(savedInstanceState == null) {
             Log.i(TAG_GAME_ACTIVITY, "savedInstanceState == null");
             toggleMainButtons();    //Have to force buttons false so they'll be set true in startGame
         }
 //        startGame();
     }
-//
-//    @Override
-//    protected void onResume() {
-////        setContentView(R.layout.activity_game);
-////        Log.i(TAG_GAME_ACTIVITY,"onResume set content");
-//        super.onResume();
-//    }
-//
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        Log.i(TAG_GAME_ACTIVITY,"onConfigurationChanged set content");
-//        super.onConfigurationChanged(newConfig);
-//        ViewGroup vg = findViewById(R.id.gridLayout);
-//        vg.invalidate();
-////        vg.removeAllViews();
-////        vg.refreshDrawableState();
-////        setContentView(R.layout.activity_game);
-//    }
 
-
+    // when the screen rotates, put the sequences onto the bundle
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         Log.i(TAG_GAME_ACTIVITY, "HELLO FRED!");
@@ -240,6 +227,7 @@ public class GameActivity extends Activity {
         startShowPatternTask();
     }
 
+    // function for starting the Thread for flashing the user the sequence
     private void startShowPatternTask() {
         // start the showPatternTask
         if ( showPatterTask == null ){
@@ -324,6 +312,7 @@ public class GameActivity extends Activity {
         btn.setVisibility(btn.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
     }
 
+    // turn on or off the start button of the game activity
     private void toggleStartButton(){
         Button btn = findViewById(R.id.button_start);
         btn.setVisibility(btn.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
@@ -341,8 +330,13 @@ public class GameActivity extends Activity {
         }
     }
 
+    // functions for upping the speed of the flasher
     private void toggleSpeed(){
+
+        // get score based on the size of the sequence
         int score = sequence.size();
+
+        // up game speed based on turns
         if (score == 5){
             gameSpeed = 0.80;
             MakeToast.toast(getApplicationContext(),"Speed Up!");
@@ -362,11 +356,7 @@ public class GameActivity extends Activity {
         static final String STATE_OFF = "off";
         static final String STATE_ON = "on";
 
-        private ImageView topLeftFlasher;
-        private ImageView topRightFlasher;
-        private ImageView bottomLeftFlasher;
-        private ImageView bottomRightFlasher;
-
+        // Id's for the translucent drawables
         private int [] flasherDrawableIds = {
             R.drawable.flash_red,
             R.drawable.flash_blue,
@@ -374,6 +364,7 @@ public class GameActivity extends Activity {
             R.drawable.flash_purple
         };
 
+        // ids for the imageviews for the flashers
         private int [] flasherIds = {
             R.id.imageview_top_left,
             R.id.imageview_top_right,
@@ -381,6 +372,7 @@ public class GameActivity extends Activity {
             R.id.imageview_bottom_right
         };
 
+        // ids for sounds in the order this Thread needs
         private int [] flasherSoundKeys = {
             SE_LASER,
             SE_ROCKS,
@@ -391,14 +383,6 @@ public class GameActivity extends Activity {
         @Override
         protected void onPreExecute() {
             toggleMainButtons();
-
-            // setup the flashers which indicate the wanted pattern from user
-            topLeftFlasher = findViewById(R.id.imageview_top_left);
-            topRightFlasher = findViewById(R.id.imageview_top_right);
-            bottomLeftFlasher = findViewById(R.id.imageview_bottom_left);
-            bottomRightFlasher = findViewById(R.id.imageview_bottom_right);
-//            setFlashers(STATE_OFF);
-//            super.onPreExecute();
         }
 
         @Override
@@ -435,22 +419,22 @@ public class GameActivity extends Activity {
 
         @Override
         protected void onProgressUpdate(Integer... values) {
-//            Log.i(TAG_GAME_ACTIVITY, "values[0] = " + values[0]);
 
+            // get me the position of the button to flash
             int pos = values[0];
 
+            // if real position flash light and play sound
             if (pos >= 0) {
                 // here we need to "flash" the color to the user
                 ((ImageView) findViewById(flasherIds[pos])).setBackground(getResources().getDrawable(flasherDrawableIds[pos]));
 
                 // play sound
                 playSound(flasherSoundKeys[pos]);
+
+                // if not real pos, turn off
             } else if (pos == -1){
                 setFlashers(STATE_OFF);
             }
-
-
-
             super.onProgressUpdate(values);
         }
 
@@ -458,10 +442,13 @@ public class GameActivity extends Activity {
         protected void onPostExecute(Void aVoid) {
             // set the showPatterTask back to null, for it may start again
             toggleMainButtons();
+
+            // set showPatterTask to null so it can go again
             showPatterTask = null;
             super.onPostExecute(aVoid);
         }
 
+        // function to turn on or off all the flashers
         private void setFlashers(String state){
             for(int i = 0; i < flasherIds.length; i++) {
                 if (state.equals("on")) {
