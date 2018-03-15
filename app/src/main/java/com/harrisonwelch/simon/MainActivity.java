@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
 
                 // change game mode
                 gameMode = GAME_MODE_REGULAR;
-                MakeToast.toast(getApplicationContext(), "Simon: Press the buttons in order one-by-one");
+//                MakeToast.toast(getApplicationContext(), "Simon: Press the buttons in order one-by-one");
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
 //                MakeToast.toast(getApplicationContext(), "mode 2 button");
                 // change game mode
                 gameMode = GAME_MODE_DOUBLE_TROUBLE;
-                MakeToast.toast(getApplicationContext(), "Double Trouble: Press the buttons in order by pairs");
+//                MakeToast.toast(getApplicationContext(), "Double Trouble: Press the buttons in order by pairs");
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
 //                MakeToast.toast(getApplicationContext(), "mode 3 button");
                 // change game mode
                 gameMode = GAME_MODE_TOPSY_TURVY;
-                MakeToast.toast(getApplicationContext(), "Tipsy Tina: Press the buttons in REVERSE!");
+//                MakeToast.toast(getApplicationContext(), "Tipsy Tina: Press the buttons in REVERSE!");
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
