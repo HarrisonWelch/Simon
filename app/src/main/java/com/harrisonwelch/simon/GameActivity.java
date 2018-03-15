@@ -224,20 +224,6 @@ public class GameActivity extends Activity {
         return VALUES.get(rand.nextInt(VALUES.size()));
     }
 
-    //Modifies the passed in queue to reverse it
-    private void reverseQueue(Queue<Buttons> queue){
-        Stack stack = new Stack();
-
-        for (Buttons b : queue){
-            stack.push(b);
-        }
-
-        queue.clear();
-        while (!stack.empty()){
-            queue.add((Buttons) stack.pop());
-        }
-    }
-
     // Called when the player has successfully completed a sequence.
     private void endTurn(){
         addRandomToSequence();
