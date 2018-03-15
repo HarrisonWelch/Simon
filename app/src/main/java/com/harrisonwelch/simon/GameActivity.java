@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -160,8 +159,10 @@ public class GameActivity extends Activity {
                 return;
             }
 
-            Buttons nextButton;
-            if (MainActivity.gameMode.equals(MainActivity.GAME_MODE_REGULAR)){
+            Buttons nextButton = playerSequence.peek();
+            Log.i(TAG_GAME_ACTIVITY, "MainActivity.gameMode = " + MainActivity.gameMode);
+            Log.i(TAG_GAME_ACTIVITY, "playerSequence.toString() = " + playerSequence.toString());
+            if (MainActivity.gameMode.equals(MainActivity.GAME_MODE_REGULAR) || MainActivity.gameMode.equals(MainActivity.GAME_MODE_DOUBLE_TROUBLE)){
                 nextButton = playerSequence.remove();
 
             // if the game mode is tipsy tina, we are going in reverse
@@ -209,7 +210,7 @@ public class GameActivity extends Activity {
         sequence.add(getRandomButton());
 
         // if the game mode is Speedy Spencer, add an extra piece.
-        if (MainActivity.gameMode == MainActivity.GAME_MODE_SPEEDY_SPENCER){
+        if (MainActivity.gameMode == MainActivity.GAME_MODE_DOUBLE_TROUBLE){
             sequence.add(getRandomButton());
         }
         playerSequence.clear();
@@ -240,8 +241,6 @@ public class GameActivity extends Activity {
     // Called when the player has successfully completed a sequence.
     private void endTurn(){
         addRandomToSequence();
-        if (gameMode == MainActivity.GAME_MODE_SPEEDY_SPENCER) addRandomToSequence();       //add another to sequence in Double Trouble
-        if (gameMode == MainActivity.GAME_MODE_TIPSY_TINA) reverseQueue(playerSequence);
         updateDebugTextViews();
         startShowPatternTask();
 
@@ -391,7 +390,7 @@ public class GameActivity extends Activity {
 
         @Override
         protected void onProgressUpdate(Integer... values) {
-            Log.i(TAG_GAME_ACTIVITY, "values[0] = " + values[0]);
+//            Log.i(TAG_GAME_ACTIVITY, "values[0] = " + values[0]);
 
             int pos = values[0];
 
