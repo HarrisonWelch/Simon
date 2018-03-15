@@ -273,10 +273,10 @@ public class GameActivity extends Activity {
     // Called when user fails a sequence.
     // Reset all local variables.
     private void endGame() {
-        MakeToast.toast(getApplicationContext(), "Game Over... score: " + (sequence.size() - 1));
+        MakeToast.toast(getApplicationContext(), "Game Over... score: " + (score));
 
-        if (sequence.size() - 1 > maxScore){
-            maxScore = sequence.size() - 1; //exclude last elem in sequence since they failed that one
+        if (score > maxScore){
+            maxScore = score; //exclude last elem in sequence since they failed that one
             MainActivity.saveScore(getApplicationContext(), maxScore);
         }
         sequence.clear();
