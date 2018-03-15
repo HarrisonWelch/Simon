@@ -25,6 +25,11 @@ public class MainActivity extends Activity {
     static public boolean soundOn = true;
     static public int maxScore;
 
+    static public final String GAME_MODE_REGULAR = "regular";
+    static public final String GAME_MODE_SPEEDY_SPENCER = "speedy_spencer";
+    static public final String GAME_MODE_TIPSY_TINA = "tipsy_tina";
+    static public String gameMode = "regular";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +45,23 @@ public class MainActivity extends Activity {
             }
         });
 
+        // Speedy Spencer!
         findViewById(R.id.button_playMode2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MakeToast.toast(getApplicationContext(), "mode 2 button");
+                // change game mode
+                gameMode = GAME_MODE_SPEEDY_SPENCER;
             }
         });
 
+        // Tipsy Tina!
         findViewById(R.id.button_playMode3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MakeToast.toast(getApplicationContext(), "mode 3 button");
+                // change game mode
+                gameMode = GAME_MODE_TIPSY_TINA;
             }
         });
 

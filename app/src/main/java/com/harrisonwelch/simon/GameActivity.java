@@ -55,7 +55,6 @@ public class GameActivity extends Activity {
         rand = new Random();
         maxScore = MainActivity.maxScore;
         
-
         setupSoundPool();
 
         //setup listeners
