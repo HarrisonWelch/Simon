@@ -45,6 +45,7 @@ public class GameActivity extends Activity {
     private LinkedList<Buttons> sequence;            //holds the entire sequence
     private LinkedList<Buttons> playerSequence;      //used to track where player is in sequence
     private int maxScore;
+    private int score = 0;
 
     private double gameSpeed = 1;
 
@@ -277,6 +278,8 @@ public class GameActivity extends Activity {
         updateDebugTextViews();
         startShowPatternTask();
 
+        // increment score
+        score++;
         // based on the size of the queue upgrade the speed
         toggleSpeed();
     }
@@ -332,10 +335,8 @@ public class GameActivity extends Activity {
 
     // functions for upping the speed of the flasher
     private void toggleSpeed(){
-
-        // get score based on the size of the sequence
-        int score = sequence.size();
-
+        // score comes from the endTurn function
+        Log.i(TAG_GAME_ACTIVITY, "score = " + score);
         // up game speed based on turns
         if (score == 5){
             gameSpeed = 0.80;
