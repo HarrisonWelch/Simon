@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#118DB0"
+    android:background="#66c4de"
     android:orientation="vertical"
     tools:context="com.harrisonwelch.simon.AboutActivity">
 
@@ -18,12 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:shadowColor="#000000"
-            android:shadowDx="7"
-            android:shadowDy="-7"
+            android:shadowDx="4"
+            android:shadowDy="-4"
             android:shadowRadius="2"
             android:text="About Simon"
             android:textAlignment="center"
-            android:textColor="#190D7C"
+            android:textColor="#3923de"
             tools:layout_editor_absoluteX="134dp"
             tools:layout_editor_absoluteY="16dp" />
 
@@ -61,7 +61,8 @@
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:autoLink="none"
-            android:text="@string/soundEffectAttribution" />
+            android:text="@string/soundEffectAttribution"
+            android:textColorLink="#660f26" />
 
         <Button
             android:id="@+id/button_back"
