@@ -315,6 +315,8 @@ public class GameActivity extends Activity {
 
         @Override
         protected void onPreExecute() {
+            toggleMainButtons();
+
             // setup the flashers which indicate the wanted pattern from user
             topLeftFlasher = findViewById(R.id.imageview_top_left);
             topRightFlasher = findViewById(R.id.imageview_top_right);
@@ -371,12 +373,16 @@ public class GameActivity extends Activity {
             } else if (pos == -1){
                 setFlashers(STATE_OFF);
             }
+
+
+
             super.onProgressUpdate(values);
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             // set the showPatterTask back to null, for it may start again
+            toggleMainButtons();
             showPatterTask = null;
             super.onPostExecute(aVoid);
         }
