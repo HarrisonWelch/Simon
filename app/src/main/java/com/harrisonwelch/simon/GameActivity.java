@@ -39,7 +39,7 @@ public class GameActivity extends Activity {
 
     private int[] buttonIds = {R.id.image_red, R.id.image_blue, R.id.image_green, R.id.image_purple};
     private LinkedList<Buttons> sequence;            //holds the entire sequence
-    private Queue<Buttons> playerSequence;      //used to track where player is in sequence
+    private LinkedList<Buttons> playerSequence;      //used to track where player is in sequence
     private int maxScore;
 
     private double gameSpeed = 1;
@@ -157,7 +157,15 @@ public class GameActivity extends Activity {
                 return;
             }
 
-            Buttons nextButton = playerSequence.remove();
+            Buttons nextButton;
+            if (MainActivity.gameMode.equals(MainActivity.GAME_MODE_REGULAR)){
+                nextButton = playerSequence.remove();
+
+            // if the game mode is tipsy tina, we are going in reverse
+            } else if (MainActivity.gameMode.equals(MainActivity.GAME_MODE_TIPSY_TINA)) {
+                int lastPosition = playerSequence.size() - 1;
+                nextButton = playerSequence.remove(lastPosition);
+            }
 
             if (nextButton == thisButton){      //if correct button, continue down sequence.
                 playSound(soundToPlay);
