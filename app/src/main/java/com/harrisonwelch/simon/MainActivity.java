@@ -42,9 +42,10 @@ public class MainActivity extends Activity {
         findViewById(R.id.button_play).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), GameActivity.class));
+
                 // change game mode
                 gameMode = GAME_MODE_REGULAR;
+                startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
 
@@ -55,6 +56,7 @@ public class MainActivity extends Activity {
 //                MakeToast.toast(getApplicationContext(), "mode 2 button");
                 // change game mode
                 gameMode = GAME_MODE_SPEEDY_SPENCER;
+                startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
 
@@ -65,6 +67,7 @@ public class MainActivity extends Activity {
 //                MakeToast.toast(getApplicationContext(), "mode 3 button");
                 // change game mode
                 gameMode = GAME_MODE_TIPSY_TINA;
+                startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
 
