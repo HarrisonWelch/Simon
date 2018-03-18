@@ -84,9 +84,10 @@ public class GameActivity extends Activity {
 
             // If game is over, toggle buttons.
             // if game has ended, toggle the actual simon buttons.
+            toggleStartButton();
             if (inGame) {
                 toggleMenuButtons();
-                toggleStartButton();
+
             } else {
                 toggleMainButtons();
             }
@@ -230,6 +231,7 @@ public class GameActivity extends Activity {
 
     // Called when user moves into activity or presses "restart"
     private void startGame() {
+        score = 0;
         inGame = true;
         toggleMenuButtons();
         toggleMainButtons();
