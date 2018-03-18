@@ -26,6 +26,7 @@ public class GameActivity extends Activity {
     private static final String TAG_GAME_ACTIVITY = "GAME_ACTIVITY";
     private static final String KEY_SEQUENCE = "sequence";
     private static final String KEY_PLAYER_SEQUENCE = "player_sequence";
+    private static final String KEY_SCORE = "score";
 
     private SoundPool soundpool;
     private SparseIntArray soundsLoaded;
@@ -73,6 +74,8 @@ public class GameActivity extends Activity {
             // get me the player sequence
             playerSequence = (LinkedList<Buttons>) savedInstanceState.getSerializable(KEY_PLAYER_SEQUENCE);
 
+            score = savedInstanceState.getInt(KEY_SCORE);
+
             Log.i(TAG_GAME_ACTIVITY, "savedInstanceState sequence = " + sequence.toString());
             Log.i(TAG_GAME_ACTIVITY, "savedInstanceState playerSequence = " + playerSequence.toString());
 
@@ -118,6 +121,7 @@ public class GameActivity extends Activity {
 
         outState.putSerializable(KEY_SEQUENCE, sequence);
         outState.putSerializable(KEY_PLAYER_SEQUENCE, playerSequence);
+        outState.putInt(KEY_SCORE, score);
     }
 
     //do initialization and sound loading for sound effects
