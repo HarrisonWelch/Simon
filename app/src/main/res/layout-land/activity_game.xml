@@ -91,7 +91,7 @@
             android:background="@drawable/simon_button_states"
             android:backgroundTint="@android:color/holo_red_light"
             android:backgroundTintMode="src_atop"
-            android:scaleType="matrix" />
+            android:scaleType="centerInside" />
 
         <ImageButton
             android:id="@+id/image_blue"
@@ -103,7 +103,7 @@
             android:background="@drawable/simon_button_states"
             android:backgroundTint="@android:color/holo_blue_light"
             android:backgroundTintMode="src_atop"
-            android:scaleType="matrix" />
+            android:scaleType="centerInside" />
 
         <ImageButton
             android:id="@+id/image_green"
@@ -115,7 +115,7 @@
             android:background="@drawable/simon_button_states"
             android:backgroundTint="@android:color/holo_green_light"
             android:backgroundTintMode="src_atop"
-            android:scaleType="matrix" />
+            android:scaleType="centerInside" />
 
         <ImageButton
             android:id="@+id/image_purple"
@@ -127,7 +127,7 @@
             android:background="@drawable/simon_button_states"
             android:backgroundTint="@android:color/holo_purple"
             android:backgroundTintMode="src_atop"
-            android:scaleType="matrix" />
+            android:scaleType="centerInside" />
 
     </GridLayout>
 

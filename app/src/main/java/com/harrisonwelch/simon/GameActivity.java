@@ -1,7 +1,6 @@
 package com.harrisonwelch.simon;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.AsyncTask;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,9 +16,7 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Random;
-import java.util.Stack;
 
 enum Buttons {RED, BLUE, GREEN, PURPLE}
 
