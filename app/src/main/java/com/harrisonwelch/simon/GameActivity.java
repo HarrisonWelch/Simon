@@ -21,12 +21,13 @@ import java.util.Random;
 enum Buttons {RED, BLUE, GREEN, PURPLE}
 
 public class GameActivity extends Activity {
-    private boolean isDebug = false;
+    private boolean isDebug = true;
     private ShowPatternTask showPatterTask;
     private static final String TAG_GAME_ACTIVITY = "GAME_ACTIVITY";
     private static final String KEY_SEQUENCE = "sequence";
     private static final String KEY_PLAYER_SEQUENCE = "player_sequence";
     private static final String KEY_SCORE = "score";
+    private static final String KEY_INGAME = "in_game";
 
     private SoundPool soundpool;
     private SparseIntArray soundsLoaded;
@@ -43,6 +44,7 @@ public class GameActivity extends Activity {
     private LinkedList<Buttons> playerSequence;      //used to track where player is in sequence
     private int maxScore;
     private int score = 0;
+    private boolean inGame = false;
 
     private double gameSpeed = 1;
 
@@ -75,13 +77,19 @@ public class GameActivity extends Activity {
             playerSequence = (LinkedList<Buttons>) savedInstanceState.getSerializable(KEY_PLAYER_SEQUENCE);
 
             score = savedInstanceState.getInt(KEY_SCORE);
+            inGame = savedInstanceState.getBoolean(KEY_INGAME);
 
             Log.i(TAG_GAME_ACTIVITY, "savedInstanceState sequence = " + sequence.toString());
             Log.i(TAG_GAME_ACTIVITY, "savedInstanceState playerSequence = " + playerSequence.toString());
 
-            // turn off the buttons when we screen rotate
-            toggleMenuButtons();
-            toggleStartButton();
+            // If game is over, toggle buttons.
+            // if game has ended, toggle the actual simon buttons.
+            if (inGame) {
+                toggleMenuButtons();
+                toggleStartButton();
+            } else {
+                toggleMainButtons();
+            }
         }
 
         findViewById(R.id.button_restartGame).setOnClickListener(new View.OnClickListener() {
@@ -122,6 +130,7 @@ public class GameActivity extends Activity {
         outState.putSerializable(KEY_SEQUENCE, sequence);
         outState.putSerializable(KEY_PLAYER_SEQUENCE, playerSequence);
         outState.putInt(KEY_SCORE, score);
+        outState.putBoolean(KEY_INGAME, inGame);
     }
 
     //do initialization and sound loading for sound effects
@@ -221,11 +230,13 @@ public class GameActivity extends Activity {
 
     // Called when user moves into activity or presses "restart"
     private void startGame() {
+        inGame = true;
         toggleMenuButtons();
         toggleMainButtons();
         addRandomToSequence();
         updateDebugTextViews();
         startShowPatternTask();
+
     }
 
     // function for starting the Thread for flashing the user the sequence
@@ -282,6 +293,7 @@ public class GameActivity extends Activity {
         sequence.clear();
         toggleMenuButtons();
         toggleMainButtons();
+        inGame = false;
     }
 
     //toggles between enabled and disabled on main Simon buttons
